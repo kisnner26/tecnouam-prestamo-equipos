@@ -3,7 +3,7 @@
 Proyecto para el examen practico integrador de Servicios Web (UAM, segundo corte).
 Backend en Spring Boot + JPA + Spring Security/JWT y frontend en React + Axios.
 
-## Estructura
+## Estructura:
 
 ```
 servicios-web-prestamos/
