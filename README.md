@@ -1,4 +1,4 @@
-# TecnoUAM — Sistema de prestamo de equipos tecnologicos
+# TecnoUAM — Sistema de prestamo de equipos tecnologicos.
 
 Proyecto para el examen practico integrador de Servicios Web (UAM, segundo corte).
 Backend en Spring Boot + JPA + Spring Security/JWT y frontend en React + Axios.
