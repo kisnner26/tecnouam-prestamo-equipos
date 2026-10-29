@@ -8,8 +8,11 @@ Backend en Spring Boot + JPA + Spring Security/JWT y frontend en React + Axios.
 ```
 servicios-web-prestamos/
 ├── backend/     Spring Boot (API REST, JPA, seguridad JWT)
+│   └── src/main/resources/db/   Script SQL de referencia (schema.sql, data.sql)
 ├── frontend/    React + Vite (consumo de la API)
-└── postman/     Coleccion Postman con las pruebas del Reto 4
+├── docs/        Capturas de la interfaz (ver Reto 3)
+└── postman/     Coleccion Postman y evidencias de ejecucion (Reto 4)
+    └── evidencias/
 ```
 
 ## Requisitos
@@ -36,6 +39,18 @@ El API queda en `http://localhost:8080/api`. Al arrancar se crean automaticament
 
 Consola H2 disponible en `http://localhost:8080/h2-console`
 (JDBC URL `jdbc:h2:mem:tecnouam`, usuario `sa`, password vacio).
+
+### Script SQL de referencia
+
+`backend/src/main/resources/db/schema.sql` y `data.sql` reproducen manualmente
+el mismo esquema y los mismos datos minimos que la app genera sola (via JPA +
+`DataLoader`). Sirven para inspeccionar o recrear la base en MySQL sin levantar
+la aplicacion:
+
+```bash
+mysql -u root -p < backend/src/main/resources/db/schema.sql
+mysql -u root -p < backend/src/main/resources/db/data.sql
+```
 
 ### Usar MySQL en lugar de H2
 
@@ -97,10 +112,40 @@ Importar `postman/TecnoUAM.postman_collection.json` en Postman. La coleccion ya 
 en orden, las 16 solicitudes que cubren el Reto 4: login, CRUD de equipos, prestamo,
 intento de doble prestamo (409), devolucion, eliminacion permitida/bloqueada y los
 casos 401/403. Cada request incluye un test automatico que valida el codigo HTTP
-esperado; correr la coleccion completa con el Collection Runner deja evidencia de que
-todo pasa.
+esperado.
 
-## 5. Notas de arquitectura
+### Evidencia de ejecucion
+
+La coleccion ya se corrio contra el backend real (con `newman`, el runner de
+linea de comandos de Postman) y los resultados quedaron en `postman/evidencias/`:
+
+- `resultado-ejecucion.json` — reporte completo (16/16 solicitudes, 16/16 tests, 0 fallos)
+- `resultado-ejecucion.txt` — misma corrida en texto plano, igual de legible sin abrir Postman
+- `capturas/01-login.jpg` y `capturas/02-catalogo.jpg` — capturas reales del frontend contra la API
+
+Para volver a generar la evidencia (con el backend corriendo en `:8080`):
+
+```bash
+npx newman run postman/TecnoUAM.postman_collection.json \
+  --reporters cli,json \
+  --reporter-json-export postman/evidencias/resultado-ejecucion.json
+```
+
+## 5. Equipo
+
+Repositorio compartido, con colaboradores (GitHub) invitados con permiso de
+escritura para que cada integrante registre su propio trabajo con commits y
+pull requests identificables:
+
+| Integrante (usuario GitHub) | Aporte |
+|---|---|
+| `kisnner26` | Backend (API, JPA, JWT, reglas de negocio), estructura del proyecto |
+| `eaguilar0705` | Rediseño de interfaz: login y catalogo de equipos (ver PR #2) |
+| `drakus7` | — |
+| `Oalvarado031` | — |
+| `alelegh` | — *(invitacion pendiente: el usuario de GitHub no aparece con ese nombre exacto; confirmar el handle correcto)* |
+
+## 6. Notas de arquitectura
 
 - `Equipo` y `Prestamo` son entidades JPA independientes relacionadas por
   `Prestamo.equipo` (`@ManyToOne`).
