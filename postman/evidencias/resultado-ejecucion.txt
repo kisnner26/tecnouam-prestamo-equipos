@@ -1,0 +1,87 @@
+newman
+
+TecnoUAM - Sistema de prestamo de equipos
+
+→ 01 Login ADMIN
+  POST http://localhost:8080/api/auth/login [200 OK, 644B, 130ms]
+  ✓  200 OK
+
+→ 02 Login USER
+  POST http://localhost:8080/api/auth/login [200 OK, 654B, 100ms]
+  ✓  200 OK
+
+→ 03 Login credenciales incorrectas (401)
+  POST http://localhost:8080/api/auth/login [401 Unauthorized, 569B, 99ms]
+  ✓  401 Unauthorized
+
+→ 04 GET equipos sin token (401)
+  GET http://localhost:8080/api/equipos [401 Unauthorized, 514B, 2ms]
+  ✓  401 Unauthorized
+
+→ 05 GET equipos con token USER (200)
+  GET http://localhost:8080/api/equipos [200 OK, 773B, 8ms]
+  ✓  200 OK
+
+→ 06 POST equipo con token USER (403)
+  POST http://localhost:8080/api/equipos [403 Forbidden, 528B, 4ms]
+  ✓  403 Forbidden
+
+→ 07 POST equipo con ADMIN (201 alta)
+  POST http://localhost:8080/api/equipos [201 Created, 531B, 7ms]
+  ✓  201 Created
+
+→ 08 GET equipos (consulta)
+  GET http://localhost:8080/api/equipos [200 OK, 878B, 5ms]
+  ✓  200 OK
+
+→ 09 PUT equipo (actualizacion)
+  PUT http://localhost:8080/api/equipos/5 [200 OK, 538B, 7ms]
+  ✓  200 OK
+
+→ 10 POST prestamo (registro)
+  POST http://localhost:8080/api/prestamos [201 Created, 676B, 7ms]
+  ✓  201 Created
+
+→ 11 POST prestamo mismo equipo (409 rechazado)
+  POST http://localhost:8080/api/prestamos [409 Conflict, 573B, 6ms]
+  ✓  409 Conflict
+
+→ 12 DELETE equipo con prestamo activo (409 bloqueado)
+  DELETE http://localhost:8080/api/equipos/5 [409 Conflict, 591B, 5ms]
+  ✓  409 Conflict
+
+→ 13 PUT prestamo devolver (recupera DISPONIBLE)
+  PUT http://localhost:8080/api/prestamos/2/devolver [200 OK, 681B, 7ms]
+  ✓  200 OK
+
+→ 14 DELETE equipo sin prestamos activos (204 permitido)
+  DELETE http://localhost:8080/api/equipos/5 [204 No Content, 377B, 6ms]
+  ✓  204 No Content
+
+→ 15 GET equipo inexistente (404)
+  GET http://localhost:8080/api/equipos/999999 [404 Not Found, 575B, 4ms]
+  ✓  404 Not Found
+
+→ 16 GET prestamos
+  GET http://localhost:8080/api/prestamos [200 OK, 422B, 5ms]
+  ✓  200 OK
+
+┌─────────────────────────┬───────────────────┬──────────────────┐
+│                         │          executed │           failed │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              iterations │                 1 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│                requests │                16 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│            test-scripts │                16 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│      prerequest-scripts │                 0 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              assertions │                16 │                0 │
+├─────────────────────────┴───────────────────┴──────────────────┤
+│ total run duration: 587ms                                      │
+├────────────────────────────────────────────────────────────────┤
+│ total data received: 2.69kB (approx)                           │
+├────────────────────────────────────────────────────────────────┤
+│ average response time: 25ms [min: 2ms, max: 130ms, s.d.: 41ms] │
+└────────────────────────────────────────────────────────────────┘
