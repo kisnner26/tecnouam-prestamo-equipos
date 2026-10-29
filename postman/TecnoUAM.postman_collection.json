@@ -19,8 +19,8 @@
           "script": {
             "exec": [
               "pm.test('200 OK', () => pm.response.to.have.status(200));",
-              "const data = pm.response.json();",
-              "pm.collectionVariables.set('adminToken', data.token);"
+              "const cuerpo = pm.response.json();",
+              "pm.collectionVariables.set('adminToken', cuerpo.token);"
             ]
           }
         }
@@ -40,8 +40,8 @@
           "script": {
             "exec": [
               "pm.test('200 OK', () => pm.response.to.have.status(200));",
-              "const data = pm.response.json();",
-              "pm.collectionVariables.set('userToken', data.token);"
+              "const cuerpo = pm.response.json();",
+              "pm.collectionVariables.set('userToken', cuerpo.token);"
             ]
           }
         }
@@ -118,8 +118,8 @@
           "script": {
             "exec": [
               "pm.test('201 Created', () => pm.response.to.have.status(201));",
-              "const data = pm.response.json();",
-              "pm.collectionVariables.set('equipoId', data.id);"
+              "const cuerpo = pm.response.json();",
+              "pm.collectionVariables.set('equipoId', cuerpo.id);"
             ]
           }
         }
@@ -174,8 +174,8 @@
           "script": {
             "exec": [
               "pm.test('201 Created', () => pm.response.to.have.status(201));",
-              "const data = pm.response.json();",
-              "pm.collectionVariables.set('prestamoId', data.id);"
+              "const cuerpo = pm.response.json();",
+              "pm.collectionVariables.set('prestamoId', cuerpo.id);"
             ]
           }
         }
