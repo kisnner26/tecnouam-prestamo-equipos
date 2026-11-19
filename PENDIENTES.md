@@ -51,8 +51,8 @@ Contexto que necesita para no perder tiempo repitiendo trabajo:
 - Evidencias ya generadas en `postman/evidencias/` (JSON, texto plano y dos
   capturas del frontend real). Si se vuelve a correr la demo, está bien
   regenerarlas pisando los mismos archivos.
-- Script SQL de referencia (no se ejecuta automáticamente, es solo para
-  inspección/MySQL manual) en `backend/src/main/resources/db/`.
+- Base de datos MySQL (no se ejecuta automáticamente, es para instalarla a
+  mano en MySQL) en `BD/`; instrucciones en `BD/README.md`.
 
 ## 4. Fuera del alcance de cualquier agente
 

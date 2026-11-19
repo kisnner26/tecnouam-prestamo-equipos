@@ -8,7 +8,7 @@ Backend en Spring Boot + JPA + Spring Security/JWT y frontend en React + Axios.
 ```
 servicios-web-prestamos/
 ├── backend/     Spring Boot (API REST, JPA, seguridad JWT)
-│   └── src/main/resources/db/   Script SQL de referencia (schema.sql, data.sql)
+├── BD/          Base de datos MySQL (esquema, datos, vistas, procedimientos)
 ├── frontend/    React + Vite (consumo de la API)
 ├── docs/        Capturas de la interfaz (ver Reto 3)
 └── postman/     Coleccion Postman y evidencias de ejecucion (Reto 4)
@@ -40,16 +40,17 @@ El API queda en `http://localhost:8080/api`. Al arrancar se crean automaticament
 Consola H2 disponible en `http://localhost:8080/h2-console`
 (JDBC URL `jdbc:h2:mem:tecnouam`, usuario `sa`, password vacio).
 
-### Script SQL de referencia
+### Base de datos MySQL
 
-`backend/src/main/resources/db/schema.sql` y `data.sql` reproducen manualmente
-el mismo esquema y los mismos datos minimos que la app genera sola (via JPA +
-`DataLoader`). Sirven para inspeccionar o recrear la base en MySQL sin levantar
-la aplicacion:
+La carpeta `BD/` crea la base `tecnouam` completa en MySQL 8.0.19+: las mismas
+tablas que genera JPA, con restricciones que replican las reglas de negocio
+(un solo prestamo activo por equipo, fechas coherentes, estados validos), datos
+de prueba, vistas de reportes y procedimientos almacenados. Detalle y diagrama
+entidad-relacion en [`BD/README.md`](BD/README.md).
 
 ```bash
-mysql -u root -p < backend/src/main/resources/db/schema.sql
-mysql -u root -p < backend/src/main/resources/db/data.sql
+cd BD
+mysql -u root -p < instalar_todo.sql
 ```
 
 ### Usar MySQL en lugar de H2
@@ -142,7 +143,7 @@ pull requests identificables:
 | `kisnner26` | Backend (API, JPA, JWT, reglas de negocio), estructura del proyecto |
 | `eaguilar0705` | Rediseño de interfaz: login y catalogo de equipos (ver PR #2) |
 | `drakus7` | — |
-| `Oalvarado031` | — |
+| `Oalvarado031` | Base de datos MySQL (`BD/`): esquema, restricciones, datos de prueba, vistas y procedimientos |
 | `alelegh` | — *(invitacion pendiente: el usuario de GitHub no aparece con ese nombre exacto; confirmar el handle correcto)* |
 
 ## 6. Notas de arquitectura
