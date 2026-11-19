@@ -62,14 +62,11 @@ cd backend
 Cuentas sembradas: `admin` / `admin123` (ADMIN) e `instructor` / `instructor123`
 (USER). En la tabla se guardan como hash BCrypt.
 
-> **Error `Public Key Retrieval is not allowed`.** Con MySQL 8 la URL de
-> `application-mysql.properties` (`useSSL=false`) puede fallar al arrancar,
-> sobre todo justo después de reiniciar el servidor MySQL. La solución es agregar
-> `allowPublicKeyRetrieval=true` a la URL de ese archivo, o sin tocar el código:
->
-> ```bash
-> export SPRING_DATASOURCE_URL='jdbc:mysql://localhost:3306/tecnouam?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC'
-> ```
+> La URL de `application-mysql.properties` incluye `allowPublicKeyRetrieval=true`.
+> Sin ese parámetro, MySQL 8 rechaza la conexión con el error
+> `Public Key Retrieval is not allowed` (con `useSSL=false` y el método de
+> autenticación por defecto `caching_sha2_password`), sobre todo justo después de
+> reiniciar el servidor.
 
 ## Modelo entidad-relación
 
